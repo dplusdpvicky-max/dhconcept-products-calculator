@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dH 產品用量試算</title>
+    <link rel="icon" type="image/png" href="./image/favicon.png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif;
+            background: #fff7f5;
+            margin: 0;
+            padding: 28px 16px;
+            color: #333;
+            letter-spacing: 0.06em; /* 全頁字距 */
+            line-height: 1.7;
+        }
+
+        button,
+        a,
+        input,
+        label,
+        p,
+        h1,
+        h2,
+        h3,
+        small {
+            letter-spacing: inherit;
+        }
+
+        .brand-header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0 12px;
+        }
+
+        .brand-logo {
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .wrapper {
+            max-width: 560px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 26px 20px 22px;
+            border-radius: 22px;
+            box-shadow: 0 10px 24px rgba(255, 134, 116, 0.18);
+            border: 2px solid #ff8674;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin: 0 0 6px;
+            text-align: center;
+            color: #ff8674;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+        }
+
+        .sub {
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            margin: 0 0 16px;
+            letter-spacing: 0.08em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .calc-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 16px;
+            border: 1.5px solid #ffd4cb;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 6px 14px rgba(255, 134, 116, 0.10);
+            transition: all .18s ease-out;
+        }
+
+        .calc-link:hover {
+            transform: translateY(-2px);
+            border-color: #ff8674;
+            box-shadow: 0 10px 18px rgba(255, 134, 116, 0.22);
+        }
+
+        .calc-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #ff735e;
+            margin: 0;
+            letter-spacing: 0.08em;
+        }
+
+        .calc-desc {
+            font-size: 12px;
+            color: #666;
+            margin: 4px 0 0;
+            line-height: 1.6;
+            letter-spacing: 0.1em;
+        }
+
+        .calc-tag {
+            flex: 0 0 auto;
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, #ff8674, #ffb2a7);
+            padding: 8px 12px;
+            border-radius: 999px;
+            letter-spacing: 0.12em;
+            box-shadow: 0 8px 14px rgba(255, 134, 116, 0.18);
+            white-space: nowrap;
+        }
+
+        .note {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            line-height: 1.7;
+            letter-spacing: 0.08em;
+        }
+
+        .cta {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+        }
+
+        .cta a {
+            display: block;
+            margin-top: 8px;
+            background: #ff8674;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            box-shadow: 0 8px 14px rgba(255, 134, 116, 0.28);
+            transition: all .18s ease-out;
+        }
+
+        .cta a:hover {
+            background: #ff735e;
+            box-shadow: 0 10px 18px rgba(255, 134, 116, 0.45);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 480px) {
+            .brand-logo {
+                height: 54px;
+            }
+
+            .wrapper {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="brand-header">
+        <img src="./image/dHShop.png" alt="dH Shop Logo" class="brand-logo">
+    </header>
+
+    <main class="wrapper">
+        <h1>dH 用量試算</h1>
+        <p class="sub">選擇你要的產品，點擊按鈕快速試算</p>
+
+        <section class="grid">
+
+            <a class="calc-link" href="./oppa-floor-calculator/index.html">
+                <div>
+                    <p class="calc-title">歐巴地板</p>
+                    <p class="calc-desc">免膠、免卡扣、可帶著走的高品質地板</p>
+                </div>
+                <span class="calc-tag">開始試算</span>
+            </a>
+
+            <a class="calc-link" href="./latex-paint-calculator/index.html">
+                <div>
+                    <p class="calc-title">dH精選乳膠漆</p>
+                    <p class="calc-desc">設計師調色、低味道，新手也能自己刷</p>
+                </div>
+                <span class="calc-tag">開始試算</span>
+            </a>
+
+            <a class="calc-link" href="./mini-oppa-floor-calculator/index.html">
+                <div>
+                    <p class="calc-title">小歐巴地板</p>
+                    <p class="calc-desc">一撕即貼，小坪數局部改造最快速</p>
+                </div>
+                <span class="calc-tag">開始試算</span>
+            </a>
+
+            <a class="calc-link" href="./gpro-floor-calculator/index.html">
+                <div>
+                    <p class="calc-title">G-pro 精品地板</p>
+                    <p class="calc-desc">德國進口，耐磨穩定，重視質感首選</p>
+                </div>
+                <span class="calc-tag">開始試算</span>
+            </a>
+
+            <a class="calc-link" href="./spc-floor-calculator/index.html">
+                <div>
+                    <p class="calc-title">dH-SPC 地板</p>
+                    <p class="calc-desc">防水耐刮，連工帶料，適合全室施工</p>
+                </div>
+                <span class="calc-tag">開始試算</span>
+            </a>
+
+            <a class="calc-link" href="./onni-wallpaper-calculator/index.html">
+                <div>
+                    <p class="calc-title">歐膩壁紙</p>
+                    <p class="calc-desc">水貼不殘膠，新手也能自己貼的壁紙</p>
+                </div>
+                <span class="calc-tag">開始試算</span>
+            </a>
+
+        </section>
+
+        <!-- <p class="note">
+            ※ 建議試算後先截圖保存，再回商品頁下單<br>
+            ※ 實際用量可能因裁切與施工方式略有差異
+        </p> -->
+
+        <div class="cta">
+            <small style="display:block;color:#888;">想直接回 dHConcept？</small>
+            <a href="https://www.dhconcept.com/" target="_blank" rel="noopener">回到官網</a>
+        </div>
+    </main>
+</body>
+
+</html>

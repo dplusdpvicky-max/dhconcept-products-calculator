@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>歐巴地板 用量試算</title>
+  <link rel="icon" type="image/png" href="../image/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont,
+        "Microsoft JhengHei", sans-serif;
+      background: #fff7f5;
+      /* 淺粉底更符合彩度，避免眼花 */
+      margin: 0;
+      padding: 28px 16px;
+      color: #333;
+      letter-spacing: 1px;
+      /* 全站字距：0.2~0.6 自己調 */
+      line-height: 1.7;
+      /* 視覺會更鬆、更高級 */
+    }
+
+    /* 讓表單/按鈕也跟著一致 */
+    button,
+    input,
+    label,
+    p,
+    h1,
+    h2,
+    h3,
+    small {
+      letter-spacing: inherit;
+    }
+
+    .brand-header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 20px 0 16px;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      /* Logo 間距 */
+    }
+
+    .brand-logo {
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .logo-x {
+      font-size: 26px;
+      font-weight: 600;
+      color: #FF8674;
+      /* 品牌主色 */
+    }
+
+    .wrapper {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 28px 22px 26px;
+      border-radius: 22px;
+      box-shadow: 0 10px 24px rgba(255, 134, 116, 0.18);
+      border: 2px solid #ff8674;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 6px;
+      text-align: center;
+      color: #ff8674;
+      font-weight: 700;
+    }
+
+    .sub {
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      margin: 0 0 14px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0 12px;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 9px 8px;
+      font-size: 14px;
+      border-radius: 999px;
+      border: 1.5px solid #ffc4bb;
+      background: #ffe3de;
+      cursor: pointer;
+      color: #444;
+      font-weight: 500;
+    }
+
+    .tabs button.active {
+      background: #ff8674;
+      color: #fff;
+      border-color: #ff8674;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 10px;
+      border: 1.5px solid #ffd4cb;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ff8674;
+      box-shadow: 0 0 0 2px rgba(255, 134, 116, 0.25);
+    }
+
+    .calc-btn {
+      width: 100%;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff8674, #ffb2a7);
+      color: #fff;
+    }
+
+    .calc-btn:active {
+      transform: translateY(1px);
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 16px 14px;
+      border-radius: 12px;
+      background: #ffe8e3;
+      border: 1px solid #ffb0a4;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .result strong {
+      color: #ff5640;
+      font-weight: 700;
+    }
+
+    .tip {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .cta {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .cta a {
+      display: block;
+      margin-top: 8px;
+      background: #ff8674;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 8px 14px rgba(255, 134, 116, 0.28);
+    }
+
+    .cta a:hover {
+      background: #ff735e;
+    }
+
+    .cta small {
+      display: block;
+      color: #888;
+      margin-bottom: 2px;
+    }
+
+    /* hover transition 共用 */
+    .tabs button,
+    .calc-btn,
+    .cta a {
+      transition: all 0.18s ease-out;
+    }
+
+    /* 上方 tab hover */
+    .tabs button:hover {
+      background: #ff9f90;
+      border-color: #ff8674;
+      color: #ffffff;
+    }
+
+    /* 計算按鈕 hover */
+    .calc-btn:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 6px 14px rgba(255, 134, 116, 0.35);
+      transform: translateY(-1px);
+    }
+
+    /* 返回商品頁 hover */
+    .cta a:hover {
+      background: #ff735e;
+      box-shadow: 0 8px 16px rgba(255, 134, 116, 0.45);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 480px) {
+      .wrapper {
+        padding: 12px 14px 12px;
+      }
+
+      .tip {
+        font-size: 10px;
+        margin-top: 10px;
+      }
+
+      .cta {
+        margin-top: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand-logo {
+        height: 50px;
+      }
+
+      .logo-x {
+        font-size: 20px;
+      }
+    }
+
+
+    /* ===== Modal ===== */
+    .modal-mask {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 9999;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 360px;
+      background: #fff;
+      border: 2px solid #ff8674;
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(255, 134, 116, 0.28);
+      padding: 18px 16px 14px;
+      text-align: center;
+      animation: modalIn .18s ease-out;
+    }
+
+    .modal-icon {
+      width: 44px;
+      height: 44px;
+      margin: 2px auto 8px;
+      border-radius: 999px;
+      background: #ffe8e3;
+      display: flex;
+      color: #ff735e;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .modal-title {
+      margin: 6px 0;
+      color: #ff8674;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .modal-msg {
+      margin: 0 0 12px;
+      color: #444;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .modal-btn {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #ff8674, #ffb2a7);
+      transition: all .18s ease-out;
+    }
+
+    .modal-btn:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(255, 134, 116, 0.35);
+    }
+
+    @keyframes modalIn {
+      from {
+        transform: translateY(6px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* 產品圖示 */
+    .product-icon-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 12px 0 16px;
+    }
+
+    .product-icon {
+      height: 100px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+
+
+
+<body>
+  <header class="brand-header">
+    <div class="brand-logos">
+      <img src="../image/dHShop.png" alt="dH concept Logo" class="brand-logo">
+    </div>
+  </header>
+  <div class="wrapper">
+    <h1>我家需要多少 歐巴地板？</h1>
+    <p class="sub">輸入尺寸 立刻幫你算✔</p>
+
+    <div class="product-icon-wrap">
+      <img src="../image/oppa-floor.gif" alt="歐巴地板" class="product-icon">
+    </div>
+
+    <p class="sub" style="font-size:12px; line-height:1.6;">
+      板材尺寸：95cm × 18.4cm｜一箱 10 片<br />
+      <!-- 一箱約可鋪 <strong style="color:#ff8674;">0.53 坪</strong> -->
+    </p>
+
+    <div class="tabs">
+      <button id="tab-area" class="active">用捲尺量</button>
+      <button id="tab-ping">知道大約坪數</button>
+    </div>
+
+    <div id="mode-area">
+      <label>要鋪的地面長度（cm）</label>
+      <input id="len" type="number" placeholder="例如：500" />
+
+      <label>要鋪的地面寬度（cm）</label>
+      <input id="wid" type="number" placeholder="例如：320" />
+    </div>
+
+    <div id="mode-ping" style="display: none;">
+      <label>鋪設坪數</label>
+      <input id="ping" type="number" placeholder="例如：5.2" />
+    </div>
+
+    <button class="calc-btn" id="calcBtn">開始計算</button>
+
+    <div id="result" class="result" style="display: none;"></div>
+    <div class="cta">
+      <small>截圖保存結果了嗎？</small>
+      <a href="https://www.dhconcept.com/item/7?utm_source=Website&utm_medium=dHSHOP_Promotion&utm_campaign=250513_dHSHOP_promotion_flooring"
+        target="_blank">
+        返回 歐巴地板 商品頁
+      </a>
+    </div>
+    <!-- <p class="tip">
+      ※ 建議您計算後先「截圖保存」，再回商品頁下單<br />
+      ※ 坪數呈現不四捨五入，以避免實際施工因損耗與裁切不足<br />
+      ※ 損耗因格局不同略有差異，可多準備 1 箱做備品
+    </p> -->
+
+
+  </div>
+
+  <!-- ===== Modal ===== -->
+  <div id="modalMask" class="modal-mask" style="display:none;">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-icon">！</div>
+      <h3 class="modal-title">提醒</h3>
+      <p id="modalMsg" class="modal-msg">訊息</p>
+      <button id="modalOkBtn" class="modal-btn">知道了</button>
+    </div>
+  </div>
+
+  <script>
+    const PING_PER_BOX = 0.5288;
+
+    const tabArea = document.getElementById("tab-area");
+    const tabPing = document.getElementById("tab-ping");
+    const modeArea = document.getElementById("mode-area");
+    const modePing = document.getElementById("mode-ping");
+    const resultEl = document.getElementById("result");
+    let mode = "area";
+
+    // ===== Modal（只初始化一次）=====
+    const modalMask = document.getElementById("modalMask");
+    const modalMsg = document.getElementById("modalMsg");
+    const modalOkBtn = document.getElementById("modalOkBtn");
+
+    function showModal(message) {
+      modalMsg.textContent = message;
+      modalMask.style.display = "flex";
+    }
+    function closeModal() {
+      modalMask.style.display = "none";
+    }
+
+    modalOkBtn.addEventListener("click", closeModal);
+    modalMask.addEventListener("click", (e) => {
+      if (e.target === modalMask) closeModal();
+    });
+
+    // ===== Tab 切換 =====
+    tabArea.addEventListener("click", () => {
+      mode = "area";
+      tabArea.classList.add("active");
+      tabPing.classList.remove("active");
+      modeArea.style.display = "block";
+      modePing.style.display = "none";
+      resultEl.style.display = "none";
+    });
+
+    tabPing.addEventListener("click", () => {
+      mode = "ping";
+      tabPing.classList.add("active");
+      tabArea.classList.remove("active");
+      modeArea.style.display = "none";
+      modePing.style.display = "block";
+      resultEl.style.display = "none";
+    });
+
+    // ===== 計算（抽出來，按鈕/Enter 共用）=====
+    function calculate() {
+      let totalPing;
+
+      if (mode === "area") {
+        const len = +document.getElementById("len").value;
+        const wid = +document.getElementById("wid").value;
+        if (!len || !wid) return showModal("請輸入長與寬");
+        totalPing = (len / 100 * wid / 100) / 3.3058;
+      } else {
+        totalPing = +document.getElementById("ping").value;
+        if (!totalPing) return showModal("請輸入坪數");
+      }
+
+      const boxes = Math.ceil(totalPing / PING_PER_BOX);
+
+      resultEl.style.display = "block";
+      resultEl.innerHTML = `
+      <div style="text-align:center; font-size:14px; line-height:1.6;">
+        📏 預估面積：約 <strong>${totalPing.toFixed(2)} 坪</strong><br>
+        📦 每箱可鋪：約 0.53 坪
+      </div>
+
+      <div style="margin-top:16px; text-align:center;">
+        <span style="
+          font-size:26px;
+          font-weight:600;
+          color:#ff5640;
+          display:inline-block;
+          padding:6px 0;
+        ">
+          你需要：${boxes} 箱 歐巴地板
+        </span>
+      </div>
+
+      <p style="
+        text-align:center;
+        font-size:14px;
+        color:#444;
+        margin:10px 0 4px;
+        font-weight:600;
+      ">
+        ※ 自己鋪：建議多準備 1 箱作備品 <br>
+        ※ 師傅鋪：建議多準備 2 箱備用
+      </p>
+
+      <p style="text-align:center; font-size:12px; color:#777; margin-top:6px;">
+        請先截圖保存，再返回商品頁依需要下單 ✔
+      </p>
+    `;
+    }
+
+    // 按鈕點擊 = 計算
+    document.getElementById("calcBtn").addEventListener("click", calculate);
+
+    // Enter 也可計算（只在 input focus 時觸發，避免誤觸）
+    document.addEventListener("keydown", (e) => {
+      // Modal 開著時
+      if (modalMask.style.display !== "none") {
+        if (e.key === "Enter" || e.key === "Escape") {
+          closeModal();
+          e.preventDefault(); // 阻止 Enter 繼續往下觸發
+        }
+        return;
+      }
+
+      // Modal 沒開時，Enter 才觸發計算
+      if (e.key === "Enter" && document.activeElement.tagName === "INPUT") {
+        calculate();
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

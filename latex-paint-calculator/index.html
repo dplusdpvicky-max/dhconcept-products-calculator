@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>dH乳膠漆 用量試算</title>
+  <link rel="icon" type="image/png" href="../image/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif;
+      background: #fff7f5;
+      margin: 0;
+      padding: 28px 16px;
+      color: #333;
+      letter-spacing: 1px;
+      line-height: 1.7;
+    }
+
+    button,
+    input,
+    label,
+    p,
+    h1,
+    h2,
+    h3,
+    small {
+      letter-spacing: inherit;
+    }
+
+    .brand-header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 20px 0 16px;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo {
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .wrapper {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 28px 22px 26px;
+      border-radius: 22px;
+      box-shadow: 0 10px 24px rgba(255, 134, 116, 0.18);
+      border: 2px solid #ff8674;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 6px;
+      text-align: center;
+      color: #ff8674;
+      font-weight: 700;
+    }
+
+    .sub {
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      margin: 0 0 14px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0 12px;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 9px 8px;
+      font-size: 14px;
+      border-radius: 999px;
+      border: 1.5px solid #ffc4bb;
+      background: #ffe3de;
+      cursor: pointer;
+      color: #444;
+      font-weight: 500;
+      transition: all 0.18s ease-out;
+    }
+
+    .tabs button.active {
+      background: #ff8674;
+      color: #fff;
+      border-color: #ff8674;
+      font-weight: 600;
+    }
+
+    .tabs button:hover {
+      background: #ff9f90;
+      border-color: #ff8674;
+      color: #ffffff;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 10px;
+      border: 1.5px solid #ffd4cb;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ff8674;
+      box-shadow: 0 0 0 2px rgba(255, 134, 116, 0.25);
+    }
+
+    .calc-btn {
+      width: 100%;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff8674, #ffb2a7);
+      color: #fff;
+      transition: all 0.18s ease-out;
+    }
+
+    .calc-btn:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 6px 14px rgba(255, 134, 116, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .calc-btn:active {
+      transform: translateY(1px);
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 16px 14px;
+      border-radius: 12px;
+      background: #ffe8e3;
+      border: 1px solid #ffb0a4;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .result strong {
+      color: #ff5640;
+      font-weight: 700;
+    }
+
+    .cta {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .cta a {
+      display: block;
+      margin-top: 8px;
+      background: #ff8674;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 8px 14px rgba(255, 134, 116, 0.28);
+      transition: all 0.18s ease-out;
+    }
+
+    .cta a:hover {
+      background: #ff735e;
+      box-shadow: 0 8px 16px rgba(255, 134, 116, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .cta small {
+      display: block;
+      color: #888;
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .wrapper {
+        padding: 12px 14px 12px;
+      }
+
+      .cta {
+        margin-top: 14px;
+      }
+
+      .brand-logo {
+        height: 50px;
+      }
+    }
+
+    /* ===== Modal ===== */
+    .modal-mask {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 9999;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 360px;
+      background: #fff;
+      border: 2px solid #ff8674;
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(255, 134, 116, 0.28);
+      padding: 18px 16px 14px;
+      text-align: center;
+      animation: modalIn .18s ease-out;
+    }
+
+    .modal-icon {
+      width: 44px;
+      height: 44px;
+      margin: 2px auto 8px;
+      border-radius: 999px;
+      background: #ffe8e3;
+      display: flex;
+      color: #ff735e;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .modal-title {
+      margin: 6px 0;
+      color: #ff8674;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .modal-msg {
+      margin: 0 0 12px;
+      color: #444;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .modal-btn {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #ff8674, #ffb2a7);
+      transition: all .18s ease-out;
+    }
+
+    .modal-btn:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(255, 134, 116, 0.35);
+    }
+
+    @keyframes modalIn {
+      from {
+        transform: translateY(6px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* 產品圖示 */
+    .product-icon-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 12px 0 16px;
+    }
+
+    .product-icon {
+      height: 100px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="brand-header">
+    <div class="brand-logos">
+      <img src="../image/dHShop.png" alt="dH Shop Logo" class="brand-logo">
+    </div>
+  </header>
+
+  <div class="wrapper">
+    <h1>我家需要幾罐 dH精選乳膠漆？</h1>
+    <p class="sub">輸入尺寸 立刻幫你算✔</p>
+
+    <div class="product-icon-wrap">
+      <img src="../image/latex-paint.gif" alt="dH精選乳膠漆" class="product-icon">
+    </div>
+
+    <p class="sub" style="font-size:12px; line-height:1.6;">
+      用量參考：<strong style="color:#ff8674;">1 罐（1L）約可刷 6.6 平方公尺</strong><br />
+      ※ 實際用量會因牆面吸水性、刷塗道數而異
+    </p>
+
+    <div class="tabs">
+      <button id="tab-area" class="active">用捲尺量</button>
+      <button id="tab-sqm">知道牆面面積</button>
+    </div>
+
+    <div id="mode-area">
+      <label>要刷的區域寬度（cm）</label>
+      <input id="wallWcm" type="number" inputmode="decimal" placeholder="例如：500" />
+
+      <label>要刷的區域高度（cm）</label>
+      <input id="wallHcm" type="number" inputmode="decimal" placeholder="例如：320" />
+    </div>
+
+    <div id="mode-sqm" style="display:none;">
+      <label>漆刷面積（平方公尺）</label>
+      <input id="wallSqm" type="number" inputmode="decimal" placeholder="例如：6" />
+    </div>
+
+    <button class="calc-btn" id="calcBtn">開始計算</button>
+
+    <div id="result" class="result" style="display:none;"></div>
+
+    <div class="cta">
+      <small>截圖保存結果了嗎？</small>
+      <a href="https://dhconcept.com/item/607" target="_blank" rel="noopener">
+        返回 乳膠漆 商品頁
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== Modal ===== -->
+  <div id="modalMask" class="modal-mask" style="display:none;">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-icon">！</div>
+      <h3 class="modal-title">提醒</h3>
+      <p id="modalMsg" class="modal-msg">訊息</p>
+      <button id="modalOkBtn" class="modal-btn">知道了</button>
+    </div>
+  </div>
+
+  <script>
+    // ✅ 乳膠漆：1 罐可刷 6.6 平方公尺（2 坪 * 3.3058 = 6.6116，取 6.6 給消費者更好理解）
+    const SQM_PER_CAN = 6.6;
+
+    const tabArea = document.getElementById("tab-area");
+    const tabSqm = document.getElementById("tab-sqm");
+    const modeArea = document.getElementById("mode-area");
+    const modeSqm = document.getElementById("mode-sqm");
+    const resultEl = document.getElementById("result");
+    let mode = "area";
+
+    // ===== Modal =====
+    const modalMask = document.getElementById("modalMask");
+    const modalMsg = document.getElementById("modalMsg");
+    const modalOkBtn = document.getElementById("modalOkBtn");
+
+    function showModal(message) {
+      modalMsg.textContent = message;
+      modalMask.style.display = "flex";
+      // 讓 Enter 直接按到「知道了」
+      setTimeout(() => modalOkBtn.focus(), 0);
+    }
+    function closeModal() {
+      modalMask.style.display = "none";
+    }
+
+    modalOkBtn.addEventListener("click", closeModal);
+    modalMask.addEventListener("click", (e) => {
+      if (e.target === modalMask) closeModal();
+    });
+
+    // ===== Tab 切換 =====
+    tabArea.addEventListener("click", () => {
+      mode = "area";
+      tabArea.classList.add("active");
+      tabSqm.classList.remove("active");
+      modeArea.style.display = "block";
+      modeSqm.style.display = "none";
+      resultEl.style.display = "none";
+    });
+
+    tabSqm.addEventListener("click", () => {
+      mode = "sqm";
+      tabSqm.classList.add("active");
+      tabArea.classList.remove("active");
+      modeArea.style.display = "none";
+      modeSqm.style.display = "block";
+      resultEl.style.display = "none";
+    });
+
+    // ===== 計算 =====
+    function calculate() {
+      let totalSqm;
+
+      if (mode === "area") {
+        const w = +document.getElementById("wallWcm").value;
+        const h = +document.getElementById("wallHcm").value;
+        if (!w || !h) return showModal("請輸入牆面寬度與高度");
+        totalSqm = (w / 100) * (h / 100); // ✅ 平方公尺
+      } else {
+        totalSqm = +document.getElementById("wallSqm").value;
+        if (!totalSqm) return showModal("請輸入牆面面積（平方公尺）");
+      }
+
+      const cans = Math.ceil(totalSqm / SQM_PER_CAN);
+
+      resultEl.style.display = "block";
+      resultEl.innerHTML = `
+        <div style="text-align:center; font-size:14px; line-height:1.6;">
+          🧱 預估牆面面積：約 <strong>${totalSqm.toFixed(2)} 平方公尺</strong><br>
+          🎨 每罐可刷：約 ${SQM_PER_CAN} 平方公尺
+        </div>
+
+        <div style="margin-top:16px; text-align:center;">
+          <span style="
+            font-size:26px;
+            font-weight:600;
+            color:#ff5640;
+            display:inline-block;
+            padding:6px 0;
+          ">
+            你需要：${cans} 罐 dH精選乳膠漆
+          </span>
+        </div>
+
+        <p style="
+          text-align:center;
+          font-size:14px;
+          color:#444;
+          margin:10px 0 4px;
+          font-weight:600;
+        ">
+          ※ 建議多準備 1 罐作補刷備用
+        </p>
+
+        <p style="text-align:center; font-size:12px; color:#777; margin-top:6px;">
+          請先截圖保存，再返回商品頁依需要下單 ✔
+        </p>
+      `;
+    }
+
+    document.getElementById("calcBtn").addEventListener("click", calculate);
+
+    // Enter/ESC：modal 開著 Enter/ESC 關閉；沒開時 Enter 計算
+    document.addEventListener("keydown", (e) => {
+      const modalOpen = modalMask.style.display !== "none";
+
+      if (modalOpen) {
+        if (e.key === "Enter" || e.key === "Escape") {
+          closeModal();
+          e.preventDefault();
+        }
+        return;
+      }
+
+      if (e.key === "Enter" && document.activeElement.tagName === "INPUT") {
+        calculate();
+      }
+    });
+  </script>
+</body>
+
+</html>
